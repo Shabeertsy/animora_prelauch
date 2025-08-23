@@ -37,7 +37,7 @@ const socials = [
 ];
 
 export default function App() {
-  const [theme, setTheme] = useState(false); 
+  const [theme, setTheme] = useState(false);
   const [countdown, setCountdown] = useState(() => {
     const launchDate = new Date();
     launchDate.setDate(launchDate.getDate() + LAUNCH_DAYS);
@@ -419,15 +419,42 @@ export default function App() {
           font-size: 14px;
           margin-top: 32px;
         }
+
+        /* Responsive styles */
+        @media (max-width: 980px) {
+          .card { grid-template-columns: 1fr; }
+          .right {
+            border-left: none;
+            border-top: 1px solid rgba(11,11,11,0.03);
+            padding-top: 32px;
+            padding-bottom: 32px;
+          }
+        }
         @media (max-width: 768px) {
-          body { padding: 16px; }
-          .left, .right { padding: 40px 32px; }
-          h1 { font-size: 32px; }
-          p.lead { font-size: 16px; max-width: 100%; }
-          .cta-row { flex-direction: column; align-items: flex-start; }
-          .countdown { flex-wrap: wrap; justify-content: center; }
-          .countdown .block { min-width: 60px; padding: 12px; }
-          .lottie-large { width: 180px; height: 180px; }
+          body { padding: 8px; }
+          .container { padding: 0; }
+          .left, .right { padding: 32px 12px; }
+          h1 { font-size: 24px; }
+          p.lead { font-size: 15px; max-width: 100%; }
+          .cta-row { flex-direction: column; align-items: stretch; gap: 10px; }
+          .countdown { flex-wrap: wrap; justify-content: center; gap: 8px; }
+          .countdown .block { min-width: 48px; padding: 8px; }
+          .lottie-large { width: 120px; height: 120px; }
+          .lottie-small { width: 80px; height: 80px; }
+          .logo svg { width: 36px; height: 36px; }
+          .logo span { font-size: 18px !important; }
+          .theme-toggle { left: 8px; top: 8px; }
+          .features { gap: 8px; }
+        }
+        @media (max-width: 480px) {
+          .card { border-radius: 0; box-shadow: none; }
+          .left, .right { padding: 18px 4px; }
+          .logo svg { width: 28px; height: 28px; }
+          .lottie-large { width: 80px; height: 80px; }
+          .lottie-small { width: 48px; height: 48px; }
+          .btn, .btn-primary, .btn-outline { font-size: 13px; padding: 10px 12px; }
+          .subscribe input[type="email"] { font-size: 13px; padding: 10px 8px; }
+          .socials a { width: 36px; height: 36px; font-size: 13px; }
         }
       `}</style>
       <div className="container">
@@ -524,7 +551,7 @@ export default function App() {
                   speed="1"
                   loop
                   autoPlay
-                  style={{ width: 100, height: 100 }}
+                  style={{ width: 100, height: 100, maxWidth: "100%" }}
                   class="lottie-small"
                 ></lottie-player>
               </div>
@@ -568,7 +595,7 @@ export default function App() {
             <img
               src="/generated-image.png"
               alt="Animora logo"
-              style={{ width: 150, height: 150 }}
+              style={{ width: "100%", maxWidth: 150, height: "auto" }}
             />
             <div style={{ width: "100%", maxWidth: 320, textAlign: "center" }}>
               <div
@@ -615,6 +642,7 @@ export default function App() {
                   loop
                   autoPlay
                   class="lottie-large"
+                  style={{ maxWidth: "100%" }}
                 ></lottie-player>
               </div>
               <form
@@ -623,6 +651,7 @@ export default function App() {
                 aria-label="Subscribe to Animora launch"
                 onSubmit={handleSubmit}
                 autoComplete="off"
+                style={{ flexWrap: "wrap" }}
               >
                 <input
                   type="email"
@@ -633,6 +662,7 @@ export default function App() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="off"
+                  style={{ minWidth: 0 }}
                 />
                 <button className="btn btn-primary" type="submit">
                   Get invite
